@@ -1,4 +1,3 @@
-#include <array>
 #include <iostream>
 #include "Node.h"
 #include "Student.h"
@@ -13,6 +12,7 @@ struct Hashtable {
 
 void makeHashtable(Hashtable* table, int size);
 int hasher(Student* student, int size);
+void insert(Student* student, Hashtable* table);
 
 
 int main() {
@@ -29,17 +29,19 @@ int main() {
 
   Hashtable* table = new Hashtable();
   makeHashtable(table, 100);
-  table->arr[1] = node;
-  cout << table->arr[1]->getValue()->studentID << endl;
-  //cout << (table->arr).size() << endl;
-  int x = hasher(newStudent, 100);
-  cout << x << endl;
+  insert(newStudent, table);
+  //table->arr[hasher(newStudent, table->size)] = node;
+  cout << table->arr[hasher(newStudent, table->size)]->getValue()->studentID << endl;
+  //cout << (table->arr[61] == NULL) << endl;
   return 0;
 }
 
 void makeHashtable(Hashtable* table, int size) {
   table->size = size;
   table->arr = new Node*[size];
+  for(int i = 0; i < size+1; i++) {
+    table->arr[i] = NULL;
+  }
 }
 
 int hasher(Student* student, int size) {
@@ -51,3 +53,10 @@ int hasher(Student* student, int size) {
   key = key%size;
   return key;
 }
+
+void insert(Student* student, Hashtable* table) {
+  Node* node = new Node();
+  node->setValue(student);
+  table->arr[hasher(student, table->size)] = node;
+}
+
