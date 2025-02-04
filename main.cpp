@@ -1,3 +1,10 @@
+/*
+  Aditya Chandrashekaran
+  02/04/2025
+  This program allows the user to add student to a hash table and delete them.
+  They can also generate students and print out the table
+*/
+
 #include <iostream>
 #include "Node.h"
 #include "Student.h"
